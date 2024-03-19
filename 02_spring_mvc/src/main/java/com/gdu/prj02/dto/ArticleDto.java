@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ArticleDto {
-	private int article_no;
-	private String editor;
+  private int article_no;
+  private String editor;
 }

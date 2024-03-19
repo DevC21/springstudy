@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MyController2 {
-	
-	// value="/board/list.do"		: http://localhost:8080/prj02/board/list.do
-	// 응답 jsp									: /WEB-INF/views/board/list.jsp
-	@RequestMapping(value="/board/list.do", method=RequestMethod.GET)
-	public void method() {
-		
-	}
-	
+
+  // value="/board/list.do"  :  http://localhost:8080/prj02/board/list.do
+  // 응답 jsp                : /WEB-INF/views/board/list.jsp
+  @RequestMapping(value="/board/list.do", method=RequestMethod.GET)
+  public void method() {
+    
+  }
+  
 }
