@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
-
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.gdu</groupId>
-  <artifactId>prj05</artifactId>
-  <name>05_junit_logback</name>
-  <packaging>war</packaging>
-  <version>1.0.0-BUILD-SNAPSHOT</version>
-
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gdu</groupId>
+	<artifactId>prj06</artifactId>
+	<name>06_aop</name>
+	<packaging>war</packaging>
+	<version>1.0.0-BUILD-SNAPSHOT</version>
+  
   <properties>
     <java-version>11</java-version>
     <org.springframework-version>5.3.19</org.springframework-version>
@@ -17,6 +16,14 @@
   </properties>
   
   <dependencies>
+  
+    <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+    <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${org.aspectj-version}</version>
+        <scope>runtime</scope>
+    </dependency>
   
     <!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
     <dependency>
@@ -206,3 +213,4 @@
   </build>
     
 </project>
+

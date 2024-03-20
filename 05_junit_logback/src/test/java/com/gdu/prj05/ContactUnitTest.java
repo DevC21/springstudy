@@ -55,16 +55,18 @@ public class ContactUnitTest {
   
   @Test
   public void test02_조회() {
-  	
-  	int contactNo = 1;
-  	
-  	ContactDto contact = contactDao.getContactByNo(contactNo);
-  	
-  	assertNotNull(contact);
+    
+    int contactNo = 1;
+    
+    ContactDto contact = contactDao.getContactByNo(contactNo);
+    
+    assertNotNull(contact);
+    
   }
   
   @Test
   public void test03_수정() {
+    
     ContactDto contact = ContactDto.builder()
                             .name("[수정]테스트이름")
                             .mobile("[수정]모바일")
@@ -76,24 +78,27 @@ public class ContactUnitTest {
     int updateCount = contactDao.modifyContact(contact);
     
     assertEquals(1, updateCount);
+    
   }
   
   @Test
   public void test04_목록() {
-  	List<ContactDto> contactList = contactDao.getContactList();
-  	
-  	assertEquals(1, contactList.size());
+    
+    List<ContactDto> contactList = contactDao.getContactList();
+    
+    assertEquals(1, contactList.size());
+    
   }
   
   @Test
   public void test05_삭제() {
-  	
-  	int contactNo = 1;
-  	
-  	int deleteCount = contactDao.removeContact(contactNo);
-  	
-  	assertEquals(1, deleteCount);
+    
+    int contactNo = 1;
+    
+    int deleteCount = contactDao.removeContact(contactNo);
+    
+    assertEquals(1, deleteCount);
+    
   }
-  
   
 }
