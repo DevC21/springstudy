@@ -37,7 +37,7 @@ class ContactMockTest_JUnit5 {
   public void 테스트01_MockMvc생성확인() {
   	assertNotNull(mockMvc);
   }
-  
+   
   @Test
   public void 테스트02_삽입() throws Exception {
     
