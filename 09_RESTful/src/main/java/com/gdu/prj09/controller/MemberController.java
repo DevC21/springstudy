@@ -1,12 +1,14 @@
 package com.gdu.prj09.controller;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -53,4 +55,17 @@ public class MemberController {
     return memberService.registerMember(map, response);
   }
   
+  @GetMapping(value="/members/page/{p}/display/{dp}", produces="application/json")
+  public ResponseEntity<Map<String, Object>> getMembers(@PathVariable(value="p", required=false) Optional<String> optPage
+                                                      , @PathVariable(value="dp", required=false) Optional<String> optDisplay) {
+    int page = Integer.parseInt(optPage.orElse("1"));
+    int display = Integer.parseInt(optDisplay.orElse("20"));
+    return memberService.getMembers(page, display);
+  }
+  
+  @GetMapping(value="/members/{memberNo}", produces="application/json")
+  public ResponseEntity<Map<String, Object>> getMemberByNo(@PathVariable(value="memberNo", required=false) Optional<String> opt) {
+    int memberNo = Integer.parseInt(opt.orElse("0"));
+    return memberService.getMemberByNo(memberNo);
+  }
 }

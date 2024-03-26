@@ -22,18 +22,18 @@
       <input type="text" id="name">
     </div>
     <div>
-      <label for="none">선택안함</label>
       <input type="radio" name="gender" id="none" value="none" checked>
-      <label for="man">남자</label>
+      <label for="none">선택안함</label>
       <input type="radio" name="gender" id="man" value="man">
-      <label for="woman">여자</label>
+      <label for="man">남자</label>
       <input type="radio" name="gender" id="woman" value="woman">
+      <label for="woman">여자</label>
     </div>
   </div>
   <div>
-    <input type="text" id="zonecode" placeholder="우편번호">
+    <input type="text" id="zonecode" onclick="execDaumPostcode()" placeholder="우편번호" readonly>
     <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-    <input type="text" id="address" placeholder="주소"><br>
+    <input type="text" id="address" placeholder="주소" readonly><br>
     <input type="text" id="detailAddress" placeholder="상세주소">
     <input type="text" id="extraAddress" placeholder="참고항목">
   </div>
@@ -98,6 +98,14 @@
   <hr>
   
   <div>
+    <div id="total"></div>
+    <div>
+      <select id="display">
+        <option>20</option>
+        <option>50</option>
+        <option>100</option>
+      </select>
+    </div>
     <table border="1">
       <thead>
         <tr>
@@ -109,7 +117,6 @@
         </tr>
       </thead>
       <tbody id="members">
-        
       </tbody>
       <tfoot>
         <tr>
@@ -117,68 +124,20 @@
         </tr>
       </tfoot>
     </table>
+    <button type="button" id="btn-select-romove">선택삭제</button>
   </div>
 
+  <script src="${contextPath}/resources/js/member.js?dt=<%=System.currentTimeMillis()%>"></script>
   <script>
+    // 전역 변수
+
     
-   // jQuery 객체 선언
-   var email = $('#email');
-   var mName = $('#name');
-   var gender = $(':radio[name=gender]');
-   var zonecode = $('#zonecode');
-   var address = $('#address');
-   var detailAddress = $('#detailAddress');
-   var extraAddress = $('#extraAddress');
-   var btnInit = $('#btn-init');
-   var btnRegister = $('#btn-register');
-   var btnModify = $('#btn-modify');
-   var btnRemove = $('#btn-remove');
-   
     // 함수 표현식 (함수 만들기)
-    const fnInit = ()=>{
-    	email.val('');
-    	mName.val('');
-    	// $('#none').prop('checked', true);
-    	$('#none').attr('checked', 'checked');
-    	zonecode.val('');
-    	address.val('');
-    	detailAddress.val('');
-    	extraAddress.val('');
-    	
-    }
-    
-    const fnRegisterMember = ()=>{
-    	$.ajax({
-    		// 요청
-    		type: 'POST',
-    		url: '${contextPath}/members',
-    		contentType: 'application/json', // 보내는 데이터의 타입
-    		data: JSON.stringify({           // 보내는 데이터 (문자열 형식의 JSON 데이터)
-    			email: email.val(),
-    			name: mName.val(),
-    			gender: $(':radio[name=gender]:checked').val(),
-    			zonecode: zonecode.val(),
-    			address: address.val(),
-    			detailAddress: detailAddress.val(),
-    			extraAddress: extraAddress.val()
-    		}),
-    		//응답
-    		dataType: 'json' // 받는 데이터 타입
-    	}).done(resData=>{
-    		if(resData.insertCount === 2) {
-    			alert('정상적으로 등록되었습니다.');
-    			fnInit();
-    		}
-    	}).fail(jqXHR=>{
-    		alert(jqXHR.responseText);
-    	})
-    }
+
     
     // 함수 호출 및 이벤트
-    fnInit();
-    btnInit.on('click', fnInit);
-    btnRegister.on('click', fnRegisterMember);
-  
+
+    
   </script>
 </body>
 </html>
