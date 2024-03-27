@@ -13,6 +13,7 @@
 
   <div>
     <h1>회원관리</h1>
+    <input type="hidden" id="member-no">
     <div>
       <label for="email">이메일</label>
       <input type="text" id="email">
@@ -124,20 +125,17 @@
         </tr>
       </tfoot>
     </table>
-    <button type="button" id="btn-select-romove">선택삭제</button>
+    <button type="button" id="btn-select-remove">선택삭제</button>
   </div>
 
   <script src="${contextPath}/resources/js/member.js?dt=<%=System.currentTimeMillis()%>"></script>
   <script>
-    // 전역 변수
-
+    // jQuery 객체선언
     
     // 함수 표현식 (함수 만들기)
 
-    
     // 함수 호출 및 이벤트
 
-    
   </script>
 </body>
 </html>

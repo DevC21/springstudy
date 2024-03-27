@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.gdu.prj09.service.MemberService;
@@ -53,6 +55,23 @@ public class MemberController {
   																												  , HttpServletResponse response){
     System.out.println(map);
     return memberService.registerMember(map, response);
+  }
+  
+  @PutMapping(value="/members", produces="application/json")
+  public ResponseEntity<Map<String, Object>> modifyMember(@RequestBody Map<String, Object> map){
+  	System.out.println(map);
+  	return memberService.modifyMember(map);
+  }
+  
+  @DeleteMapping(value="/member/{memberNo}", produces="application/json")
+  public ResponseEntity<Map<String, Object>> removeMember(@PathVariable(value="memberNo", required=false) Optional<String> opt){
+    int memberNo = Integer.parseInt(opt.orElse("0"));
+  	return memberService.removeMember(memberNo);
+  }
+  
+  @DeleteMapping(value="/members/{memberNoList}",  produces="application/json")
+  public ResponseEntity<Map<String, Object>> removeMembers(@PathVariable(value="memberNoList", required=false) Optional<String> opt){
+  	return memberService.removeMembers(opt.orElse("0"));
   }
   
   @GetMapping(value="/members/page/{p}/display/{dp}", produces="application/json")

@@ -68,7 +68,7 @@
   
   <!-- Aspect 설정 -->
   <aop:config>
-    <aop:pointcut expression="execution (* com.gdu.prj06.service.*Impl.*(..))"
+    <aop:pointcut expression="execution (* com.gdu.prj09.service.*Impl.*(..))"
                   id="txPointCut"/>
     <aop:advisor advice-ref="txAdvice"
                  pointcut-ref="txPointCut"/>

@@ -57,6 +57,40 @@
     )
   </insert>
   
+  <update id="updateMember"
+          parameterType="Map">
+    UPDATE MEMBER_T
+       SET NAME = #{name}
+         , GENDER = #{gender}
+     WHERE MEMBER_NO = #{memberNo}
+  </update>
+
+  <update id="updateAddress"
+          parameterType="Map">
+    UPDATE ADDRESS_T
+       SET ZONECODE = #{zonecode}
+         , ADDRESS = #{address}
+         , DETAIL_ADDRESS = #{detailAddress}
+         , EXTRA_ADDRESS = #{extraAddress}
+     WHERE MEMBER_NO = #{memberNo}
+  </update>
+  
+  <delete id="deleteMember"
+          parameterType="int">
+    DELETE 
+      FROM MEMBER_T
+     WHERE MEMBER_NO = #{memberNo}
+  </delete>
+  
+  <delete id="deleteMembers">
+    DELETE 
+      FROM MEMBER_T
+     WHERE MEMBER_NO
+     <foreach collection="list" item="memberNo" open="IN(" separator="," close=")">
+       #{memberNo}
+     </foreach>
+  </delete>
+  
   <select id="getTotalMemberCount"
           resultType="int">
     SELECT COUNT(*)
