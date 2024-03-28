@@ -201,6 +201,36 @@
     </dependency>
     
   </dependencies>
+  
+  <!-- 
+  
+    1. 빌드와 배포
+      1) 빌드 : 프로젝트를 배포하기 위해서 프로젝트를 하나의 파일(war, jar)로 만드는 과정. Maven Complier가 필요하다.
+      2) 배포 : 빌드 결과(war, jar)를 WAS에 배포하는 것. 
+    
+    2. 빌드 (STS 를 이용한 빌드)
+      1) Run As - Maven Build
+      2) 빌드 결과 파일명
+        (1) 기본값 : artifactId-version.packaging
+        (2) 사용자 지정 : <finalName> 태그
+      3) 빌드 결과 파일 위치
+        프로젝트/target
+    
+    3. 배포 (WAS 에 직접 배포)
+      1) WAS 가 STOP 상태인지 확인하고 만약 START 상태라면 STOP 상태로 바꾼다.
+      2) CATALINA_HOME/webapps 디렉터리에 빌드 결과 파일을 가져간다.
+      3) WAS 를 START 한다.
+        (1) Windows 서버 : CATALINA_HOME/bin/startup.bat
+        (2) Linux 서버 : CATALINA_HOME/bin/startup.sh
+      4) 빌드 결과 파일 이름과 동일한 디렉터리가 생성되는지 확인한다.
+      5) 웹 브라우저를 열고 배포 결과를 확인한다.
+        http://localhost:8080/빌드결과파일명 
+      6) 예시
+        (1) prj10.war -> http://localhost:8080/prj10/
+        (1) myapp.war -> http://localhost:8080/myapp/
+        (1) ROOT.war -> http://localhost:8080/
+      
+  -->
     
   <build>
   
