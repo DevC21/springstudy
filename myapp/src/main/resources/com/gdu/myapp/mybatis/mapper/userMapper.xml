@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.myapp.mapper.UserMapper">
+
+  <select id="getUserByMap"
+          parameterType="Map"
+          resultType="UserDto">
+    SELECT USER_NO, EMAIL, PW, NAME, GENDER, MOBILE, EVENT_AGREE, SIGNUP_KIND, PW_MODIFY_DT, SIGNUP_DT
+      FROM USER_T
+    <where>
+      <if test="email!=null">EMAIL = #{email}</if>
+      <if test="pw!=null">AND PW = #{pw}</if>
+    </where>
+  </select>
+
+  <insert id="insertAccessHistory"
+          parameterType="Map">
+    INSERT INTO ACCESS_HISTORY_T (
+        ACCESS_HISTORY_NO
+      , EMAIL
+      , IP
+      , SIGNIN_DT
+      , SIGNOUT_DT
+    ) VALUES (
+        ACCESS_HISTORY_SEQ.NEXTVAL
+      , #{email}
+      , #{ip}
+      , CURRENT_DATE
+      , NULL
+    )
+  </insert>
+
+  <insert id="insertUser"
+          parameterType="UserDto">
+    
+  </insert>
+
+
+
+</mapper>
