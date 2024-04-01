@@ -33,6 +33,16 @@
     )
   </insert>
 
+  <select id="getLeaveUserBymap"
+          parameterType="Map"
+          resultType="LeaveUserDto">
+    SELECT LEAVE_USER_NO
+      FROM LEAVE_USER_T
+    <where>
+      <if test="email!=null">EMAIL = #{email}</if>
+    </where>
+  </select>
+
   <insert id="insertUser"
           parameterType="UserDto">
     

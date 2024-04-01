@@ -31,6 +31,11 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
+    <!-- SignoutListener -->
+  <listener>
+    <listener-class>com.gdu.myapp.listener.SignoutListener</listener-class>
+  </listener>
 
   <!-- Processes application requests -->
   <!-- view - DispatcherServlet - Controller  -->

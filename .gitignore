@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,java,maven
 
+# email.properties
+email.properties
+
 ### Eclipse ###
 .metadata
 bin/
@@ -137,5 +140,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,maven
