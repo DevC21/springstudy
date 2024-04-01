@@ -53,7 +53,7 @@
   
   <script>
   
-  /*
+/*
   new Promise((resolve, reject) => {
     $.ajax({
       url: '이메일중복체크요청'
@@ -132,7 +132,7 @@
 			  })
 			  .then(response=>response.json())
         .then(resData=> {
-        	if(resData.code === 인증코드값)
+        	if(resData.code === )
         })
 		  } else {
 			  document.getElementById('msg-email').innerHTML = '이미 사용 중인 이메일입니다.';
