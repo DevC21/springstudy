@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 	void signin(HttpServletRequest request, HttpServletResponse response);
-	public ResponseEntity<Map<String, Object>> checkEmail(Map<String, Object> params);
+	ResponseEntity<Map<String, Object>> checkEmail(Map<String, Object> params);
+	ResponseEntity<Map<String, Object>> sendCode(Map<String, Object> params);
 	void signout(HttpServletRequest request, HttpServletResponse response);
 	void signup(HttpServletRequest request, HttpServletResponse response);
 	void leave(HttpServletRequest request, HttpServletResponse response);

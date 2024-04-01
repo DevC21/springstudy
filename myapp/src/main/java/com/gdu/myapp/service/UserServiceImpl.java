@@ -12,19 +12,22 @@ import org.springframework.stereotype.Service;
 
 import com.gdu.myapp.dto.UserDto;
 import com.gdu.myapp.mapper.UserMapper;
+import com.gdu.myapp.utils.MyJavaMailUtils;
 import com.gdu.myapp.utils.MySecurityUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
 
   private final UserMapper userMapper;
+  private final MyJavaMailUtils myJavaMailUtils;
   
-  public UserServiceImpl(UserMapper userMapper) {
-    super();
-    this.userMapper = userMapper;
-  }
+  public UserServiceImpl(UserMapper userMapper, MyJavaMailUtils myJavaMailUtils) {
+		super();
+		this.userMapper = userMapper;
+		this.myJavaMailUtils = myJavaMailUtils;
+	}
 
-  @Override
+	@Override
   public void signin(HttpServletRequest request, HttpServletResponse response) {
     
     try {
@@ -78,6 +81,32 @@ public class UserServiceImpl implements UserService {
   	
   	return new ResponseEntity<>(Map.of("enableEmail", enableEmail)
   														, HttpStatus.OK);
+  }
+  
+  @Override
+  public ResponseEntity<Map<String, Object>> sendCode(Map<String, Object> params) {
+  	
+    /*
+     * 구글 앱 비밀번호 설정 방법
+     * 1. 구글에 로그인한다.
+     * 2. [계정] - [보안]
+     * 3. [Google에 로그인하는 방법] - [2단계 인증]을 사용 설정한다.
+     * 4. 검색란에 "앱 비밀번호"를 검색한다.
+     * 5. 앱 이름을 "myapp"으로 작성하고 [만들기] 버튼을 클릭한다.
+     * 6. 16자리 비밀번호가 나타나면 복사해서 사용한다. (비밀번호 사이 공백은 모두 제거한다.)
+     */
+  	
+  	// 인증코드 생성
+  	String code = MySecurityUtils.getRandomString(6, true, true);
+  	
+  	// 메일 보내기
+  	myJavaMailUtils.sendMail((String)params.get("email")
+  												 , "myapp 인증요청" 
+  												 , "<div>인증코드는 <strong>" + code + "</strong>입니다.");
+  	
+  	// 인증코드 입력화면으로 보내줄 값
+  	return new ResponseEntity<>(Map.of("code", code)
+  													  , HttpStatus.OK);
   }
 
   @Override
