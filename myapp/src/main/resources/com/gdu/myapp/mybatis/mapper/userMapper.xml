@@ -45,9 +45,36 @@
 
   <insert id="insertUser"
           parameterType="UserDto">
-    
+    INSERT INTO USER_T (
+        USER_NO
+      , EMAIL
+      , PW
+      , NAME
+      , GENDER
+      , MOBILE
+      , EVENT_AGREE
+      , SIGNUP_KIND
+      , PW_MODIFY_DT
+      , SIGNUP_DT
+    ) VALUES (
+        USER_SEQ.NEXTVAL
+      , #{email}
+      , #{pw}
+      , #{name}
+      , #{gender}
+      , #{mobile}
+      , #{eventAgree}
+      , 0
+      , CURRENT_DATE
+      , CURRENT_DATE
+    )
   </insert>
 
+  <delete id="deleteUser">
+  DELETE 
+    FROM USER_T
+   WHERE USER_NO = ${userNo}        
+  </delete>
 
 
 </mapper>

@@ -1,11 +1,15 @@
 package com.gdu.myapp.controller;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gdu.myapp.service.UserService;
+
 
 @RequestMapping("/user")
 @Controller
@@ -31,27 +36,13 @@ public class UserController {
   public String signinPage(HttpServletRequest request
                          , Model model) {
     
-    // Sign In 페이지 이전의 주소가 저장되어 있는 Request Header 의 referer
-    String referer = request.getHeader("referer");
+
     
-    // referer 로 돌아가면 안 되는 예외 상황 (아이디/비밀번호 찾기 화면, 가입 화면 등)
-    String[] excludeUrls = {"/findId.page", "/findPw.page", "/signup.page"};
+  	// Sign In 페이지로 url 넘겨 주기 (로그인 후 이동할 경로를 의미함)
+    model.addAttribute("url",  userService.getRedirectURLAfterSignin(request));
     
-    // Sign In 이후 이동할 url
-    String url = referer;
-    if(referer != null) {
-      for(String excludeUrl : excludeUrls) {
-        if(referer.contains(excludeUrl)) {
-          url = request.getContextPath() + "/main.page";
-          break;
-        }
-      }
-    } else {
-      url = request.getContextPath() + "/main.page";
-    }
-    
-    // Sign In 페이지로 url 넘겨 주기
-    model.addAttribute("url",  url);
+
+    model.addAttribute("naverLoginURL", userService.getNaverLoginURL(request));
     
     return "user/signin";
     
@@ -75,5 +66,20 @@ public class UserController {
   @PostMapping(value="/sendCode.do", produces="application/json")
   public ResponseEntity<Map<String, Object>> sendCode(@RequestBody Map<String, Object> params){
   	return userService.sendCode(params);
+  }
+  
+  @PostMapping("/signup.do")
+  public void signup(HttpServletRequest request, HttpServletResponse response) {
+    userService.signup(request, response);
+  }
+  
+  @GetMapping("/leave.do")
+  public void leave(HttpServletRequest request, HttpServletResponse response) {
+    userService.leave(request, response);
+  }
+  
+  @GetMapping("/signout.do")
+  public void signout(HttpServletRequest request, HttpServletResponse response) {
+    userService.signout(request, response);
   }
 }

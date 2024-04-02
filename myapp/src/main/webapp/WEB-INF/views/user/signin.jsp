@@ -36,7 +36,11 @@
         <input type="hidden" name="url" value="${url}">
         <button type="submit">Sign In</button>
       </div>   
-      
+      <div>
+        <a href="${naverLoginURL}">
+          <img src="${contextPath}/resources/img/btnG_완성형.png">
+        </a>
+      </div>
     </form>
   
   </div>

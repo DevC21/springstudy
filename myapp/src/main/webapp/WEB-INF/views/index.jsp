@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 
 <!-- include libraries(jquery, bootstrap) -->
@@ -18,27 +19,30 @@
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote.min.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 
-
 <style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css')
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap')
   * {
-      font-family: "Noto Sans KR", sans-serif;
-      font-weight: 400;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 400;
   }
 </style>
 
-
 </head>
 <body>
-  <c:if test="${sessionScope.user == null}">
-    <a href="${contextPath}/user/signin.page"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</a>
-    <a href="${contextPath}/user/signup.page"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+
+  <!-- Sign In 안 된 경우 -->
+  <c:if test="${sessionScope.user == null}">  
+    <a href="${contextPath}/user/signin.page"><i class="fa-solid fa-arrow-right-to-bracket"></i>Sign In</a>
+    <a href="${contextPath}/user/signup.page"><i class="fa-solid fa-user-plus"></i>Sign Up</a>
   </c:if>
   
+  <!-- Sign In 된 경우 -->
   <c:if test="${sessionScope.user != null}">
-      <span>${sessionScope.user.name}님 반갑습니다</span>
+    ${sessionScope.user.name}님 반갑습니다
+    <a href="${contextPath}/user/signout.do"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a>
+    <a href="${contextPath}/user/leave.do"><i class="fa-solid fa-user-minus"></i>회원탈퇴</a>
   </c:if>
-    
+  
 </body>
 </html>
