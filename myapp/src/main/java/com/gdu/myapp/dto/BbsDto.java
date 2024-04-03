@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class AccessHistoryDto {
-	private int accessHistoryNo;
-	private String email, ip, userAgent, sessionId;
-	private Date signinDt, signoutDt;
+public class BbsDto {
+	private int bbsNo, state, depth, groupNo, groupOrder;
+	private String contents;
+	private Date createDt;
+	private UserDto user;
 }

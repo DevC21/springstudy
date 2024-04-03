@@ -18,6 +18,9 @@
   </properties>
   
   <dependencies>
+  
+
+
 
     <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
     <dependency>
@@ -35,6 +38,13 @@
       <version>2.16.1</version>
     </dependency>
 
+
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20240303</version>
+    </dependency>
 
     
     <!-- Log 를 남기는 로그 프레임워크 (Log4j 보다 향상된 기능) -->

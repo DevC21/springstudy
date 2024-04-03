@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.main-wrap {
+  width: 1280px;
+  min-height: 600px; 
+  margin: 20px auto;
+}

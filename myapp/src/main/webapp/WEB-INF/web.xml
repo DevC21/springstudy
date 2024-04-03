@@ -32,9 +32,9 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
-    <!-- SignoutListener -->
+ <!-- MyHttpSessionListener -->
   <listener>
-    <listener-class>com.gdu.myapp.listener.SignoutListener</listener-class>
+    <listener-class>com.gdu.myapp.listener.MyHttpSessionListener</listener-class>
   </listener>
 
   <!-- Processes application requests -->

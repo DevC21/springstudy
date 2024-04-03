@@ -15,6 +15,7 @@
     <typeAlias alias="AccessHistoryDto"  type="com.gdu.myapp.dto.AccessHistoryDto"/>
     <typeAlias alias="LeaveUserDto"      type="com.gdu.myapp.dto.LeaveUserDto"/>
     <typeAlias alias="UserDto"           type="com.gdu.myapp.dto.UserDto"/>
+    <typeAlias alias="BbsDto"            type="com.gdu.myapp.dto.BbsDto"/>
   </typeAliases>
   
 </configuration>

@@ -5,10 +5,12 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
- <jsp:include page="./layout/header.jsp">
+ <jsp:include page="../layout/header.jsp">
    <jsp:param value="main" name="title"/>
  </jsp:include>
  
-  <h1 class="title">Welcome to myapp</h1>
+  <h1 class="title">BBS 작성화면</h1>
   
-<%@ include file="./layout/footer.jsp" %>
+  
+  
+<%@ include file="../layout/footer.jsp" %>

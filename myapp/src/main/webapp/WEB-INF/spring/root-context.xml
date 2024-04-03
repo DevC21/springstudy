@@ -47,11 +47,6 @@
         scope="singleton">
     <constructor-arg ref="sqlSessionFactoryBean"/>
   </bean>
-  
-  <bean class="org.mybatis.spring.mapper.MapperFactoryBean">
-    <property name="mapperInterface" value="com.gdu.myapp.mapper.UserMapper" />
-    <property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
-  </bean>
 
   <!-- 트랜잭션 관리자 등록 -->
   <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
