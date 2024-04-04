@@ -22,6 +22,22 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.gdu.myapp" />
+  
+  <!-- mapping 에 따른 인터셉터 등록 -->
+  <interceptors>
+    <interceptor>
+      <mapping path="/bbs/write.page"/>
+      <beans:bean class="com.gdu.myapp.interceptor.RequiredSigninInterceptor" />
+    </interceptor>
+    
+    <interceptor>
+      <mapping path="/user/signin.page"/>
+      <mapping path="/user/signup.page"/>
+      <beans:bean class="com.gdu.myapp.interceptor.RequiredSignoutInterceptor" />
+    </interceptor>
+
+  
+  </interceptors>
 	
 	
 	

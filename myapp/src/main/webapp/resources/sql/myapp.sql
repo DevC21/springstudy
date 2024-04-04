@@ -82,6 +82,21 @@ CREATE TABLE BBS_T(
 --    REFERENCES USER_T(USER_NO) ON DELETE CASCADE
 --);
 
+-- 기초 데이터 (사용자)
+INSERT INTO USER_T VALUES(
+    USER_SEQ.NEXTVAL
+  , 'a'
+  , STANDARD_HASH('1', 'SHA256')
+  , '관리자'
+  , 'man'
+  , '010-1111-1111'
+  , 1
+  , 0
+  , CURRENT_DATE
+  , CURRENT_DATE);
+
+commit;
+
 
 /************************* 트리거 *************************/
 /*
