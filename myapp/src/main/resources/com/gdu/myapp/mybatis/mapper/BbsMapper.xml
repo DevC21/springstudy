@@ -104,4 +104,26 @@
      WHERE BBS_NO = #{bbsNo}
   </update>
   
+  <!-- 검색 결과 개수 -->
+  <select id="getSearchCount"
+          parameterType="Map"
+          resultType="int">
+    SELECT COUNT(*)
+      FROM USER_T U INNER JOIN BBS_T B
+        ON U.USER_NO = B.USER_NO
+     WHERE ${column} LIKE '%' || #{query} || '%' 
+  </select>
+  
+  
+  <!-- 검색 결과 목록  -->
+    <select id="getSearchBbsList"
+          parameterType="Map"
+          resultMap="BbsMap">
+    SELECT BBS_NO, CONTENTS, USER_NO, EMAIL, CREATE_DT, STATE, DEPTH, GROUP_NO, GROUP_ORDER
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY GROUP_NO DESC, GROUP_ORDER ASC) AS RN, B.BBS_NO, B.CONTENTS, U.USER_NO, U.EMAIL, B.CREATE_DT, B.STATE, B.DEPTH, B.GROUP_NO, B.GROUP_ORDER
+              FROM USER_T U INNER JOIN BBS_T B
+                ON U.USER_NO = B.USER_NO
+             WHERE ${column} LIKE CONCAT(CONCAT('%', #{query}), '%'))
+     WHERE RN BETWEEN #{begin} AND #{end}
+  </select>
 </mapper>

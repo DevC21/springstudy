@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -213,11 +214,15 @@ public class UserServiceImpl implements UserService {
       String pw = MySecurityUtils.getSha256(request.getParameter("pw"));
       // 접속 IP (접속 기록을 남길 때 필요한 정보)
       String ip = request.getRemoteAddr();
+      // 접속 수단 (요청 헤더의 User-Agent 값)
+      String userAgent = request.getHeader("User-Agent");
       
-       // DB로 보낼 정보 (email/pw : USER_T , email/ip : ACCESS_HISTORY_T)
+       // DB로 보낼 정보 (email/pw : USER_T , email/ip/userAgent/sessionId : ACCESS_HISTORY_T)
       Map<String, Object> params = Map.of("email", email
                                         , "pw", pw
-                                        , "ip", ip);
+                                        , "ip", ip
+                                        , "userAgent", userAgent
+                                        , "sessionId", request.getSession().getId());
       
       // email/pw 가 일치하는 회원 정보 가져오기
       UserDto user = userMapper.getUserByMap(params);
@@ -254,13 +259,16 @@ public class UserServiceImpl implements UserService {
   public void signout(HttpServletRequest request, HttpServletResponse response) {
 
     try {
+    	HttpSession session = request.getSession();
+    	String sessionId = session.getId();
+    	userMapper.updateAccessHistory(sessionId);
     	
   		response.setContentType("text/html; charset=UTF-8");
   		PrintWriter out = response.getWriter();
   		out.println("<script>");
 
   		// 세션에 저장된 모든 정보 초기화
-  		request.getSession().invalidate(); // or SessionStatus 객체의 setComplete() 메소드 호출
+  		session.invalidate(); // or SessionStatus 객체의 setComplete() 메소드 호출
   		
   		// signout 후 페이지 이동
   		out.println("alert('로그아웃 되었습니다.')");
