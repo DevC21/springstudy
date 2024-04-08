@@ -6,7 +6,7 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
  <jsp:include page="../layout/header.jsp">
-   <jsp:param value="main" name="title"/>
+   <jsp:param value="블로그 작성화면" name="title"/>
  </jsp:include>
  
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -35,7 +35,7 @@
     <div>
       <input type="hidden" name="userNo" value="${sessionScope.user.userNo}">
       <button type="submit">작성완료</button>
-      <a href="${contextPath}/blog/list.do"><button type="button">작성취소</button></a>
+      <a href="${contextPath}/blog/list.page"><button type="button">작성취소</button></a>
     </div>
   </form>
   

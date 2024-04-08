@@ -5,6 +5,64 @@
 
 <mapper namespace="com.gdu.myapp.mapper.BlogMapper">
 
+  <resultMap type="BlogDto" id="BlogMap">
+   <id     property="blogNo"      column="BLOG_NO"/>
+   <result property="title"   column="TITLE"/>
+   <result property="contents"   column="CONTENTS"/>
+   <result property="hit"   column="HIT"/>
+   <result property="createDt"   column="CREATE_DT"/>
+   <result property="modifyDt"      column="MODIFY_DT"/>
+   <association property="user" javaType="UserDto">
+     <id     property="userNo" column="USER_NO" />
+     <result property="email"  column="EMAIL" />
+   </association>
+  </resultMap>
 
- 
+  <insert id="insertBlog"
+          parameterType="BlogDto">
+    INSERT INTO BLOG_T (
+        BLOG_NO
+      , TITLE
+      , CONTENTS
+      , USER_NO
+      , CREATE_DT
+      , MODIFY_DT
+    ) VALUES (
+        BLOG_SEQ.NEXTVAL
+      , #{title}
+      , #{contents}
+      , #{user.userNo}
+      , CURRENT_TIMESTAMP
+      , CURRENT_TIMESTAMP
+    )
+  </insert>
+  
+  <!-- 전체 블로그 게시글 수 -->
+  <select id="getBlogCount"
+          resultType="int">
+    SELECT COUNT(*)
+      FROM BLOG_T
+  </select>
+  
+  
+  <!-- 블로그 게시글 목록 -->
+  <select id="getBlogList"
+          parameterType="Map"
+          resultMap="BlogMap">
+    SELECT BLOG_NO, TITLE, CONTENTS, HIT, USER_NO, EMAIL, CREATE_DT, MODIFY_DT
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY B.BLOG_NO DESC) AS RN, B.BLOG_NO, B.TITLE, B.CONTENTS, B.HIT, U.USER_NO, U.EMAIL, B.CREATE_DT, B.MODIFY_DT
+              FROM USER_T U INNER JOIN BLOG_T B
+                ON U.USER_NO = B.USER_NO)
+     WHERE RN BETWEEN #{begin} AND #{end}
+  </select>
+  
+  <!-- 블로그 게시글 내용 -->
+  <select id="getBlogByNo"
+          resultMap="BlogMap">
+    SELECT BLOG_NO, TITLE, CONTENTS, HIT, USER_NO, EMAIL, CREATE_DT, MODIFY_DT
+      FROM (SELECT B.BLOG_NO, B.TITLE, B.CONTENTS, B.HIT, U.USER_NO, U.EMAIL, B.CREATE_DT, B.MODIFY_DT
+              FROM USER_T U INNER JOIN BLOG_T B
+                ON U.USER_NO = B.USER_NO
+             WHERE B.BLOG_NO = #{blogNO})
+   </select>
 </mapper>
