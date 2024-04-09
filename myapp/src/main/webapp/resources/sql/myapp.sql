@@ -93,6 +93,7 @@ CREATE TABLE COMMENT_T (
   COMMENT_NO NUMBER              NOT NULL,
   CONTENTS   VARCHAR2(4000 BYTE) NOT NULL,
   CREATE_DT  TIMESTAMP,
+  STATE      NUMBER              NULL, -- 0:삭제 1:정상 (삽입기능수정 / 관련 Dto 및 resultMap 수정)
   DEPTH      NUMBER, -- 원글 0, 답글1
   GROUP_NO   NUMBER, -- 원글에 달린 모든 답글은 동일한 GROUP_NO 를 가짐
   USER_NO    NUMBER,
@@ -122,13 +123,6 @@ INSERT INTO USER_T VALUES(
   , CURRENT_DATE);
 
 commit;
-
-    SELECT BLOG_NO, TITLE, CONTENTS, HIT, USER_NO, EMAIL, CREATE_DT, MODIFY_DT
-      FROM (SELECT B.BLOG_NO, B.TITLE, B.CONTENTS, B.HIT, U.USER_NO, U.EMAIL, B.CREATE_DT, B.MODIFY_DT
-              FROM USER_T U INNER JOIN BLOG_T B
-                ON U.USER_NO = B.USER_NO
-            WHERE BLOG_NO = 1000)
-     ;
 
 /************************* 트리거 *************************/
 /*
