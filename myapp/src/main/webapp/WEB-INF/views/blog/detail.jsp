@@ -49,10 +49,11 @@
       <span>${blog.contents}</span>
     </div>
     <c:if test="${sessionScope.user.userNo == blog.user.userNo}">
-      <div>
-        <button class="btn btn-success btn-blog-modify" type="button" data-blog-no="${blog.blogNo}">수정</button>
-        <button class="btn btn-danger btn-blog-remove" type="button" data-blog-no="${blog.blogNo}">삭제</button>
-      </div>
+      <form id="frm-btn" method="POST">  
+        <input type="hidden" name="blogNo" value="${blog.blogNo}">
+        <button type="button" id="btn-edit" class="btn btn-warning btn-sm">편집</button>
+        <button type="button" id="btn-remove" class="btn btn-danger btn-sm">삭제</button>
+      </form>
     </c:if>
   </div>
   
@@ -246,6 +247,24 @@
         }
       })
     }
+    
+    // 전역 객체
+    var frmBtn = $('#frm-btn');
+    const fnEditBlog = () => {
+      $('#btn-edit').on('click', (evt) => {
+        frmBtn.attr('action', '${contextPath}/blog/edit.do');
+        frmBtn.submit();
+      })
+    }
+    
+    const fnRemoveBlog = () => {
+      $('#btn-remove').on('click', (evt) => {
+        if(confirm('블로그를 삭제하면 모든 댓글이 함께 삭제됩니다. 삭제할까요?')){
+          frmBtn.attr('action', '${contextPath}/blog/remove.do');
+          frmBtn.submit();
+        }
+      })
+    }
 
     fnBtnRemove();
     $('#contents').on('click', fnCheckSignin);
@@ -253,6 +272,8 @@
     fnCommentList();
     fnBtnReply();
     fnRegisterReply();
+    fnEditBlog();
+    fnRemoveBlog();
   </script>
   
 <%@ include file="../layout/footer.jsp" %>

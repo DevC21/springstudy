@@ -18,6 +18,8 @@
     <typeAlias alias="BbsDto"            type="com.gdu.myapp.dto.BbsDto"/>
     <typeAlias alias="BlogDto"            type="com.gdu.myapp.dto.BlogDto"/>
     <typeAlias alias="CommentDto"            type="com.gdu.myapp.dto.CommentDto"/>
+    <typeAlias alias="UploadDto"            type="com.gdu.myapp.dto.UploadDto"/>
+    <typeAlias alias="AttachDto"            type="com.gdu.myapp.dto.AttachDto"/>
   </typeAliases>
   
 </configuration>
