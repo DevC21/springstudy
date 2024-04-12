@@ -68,9 +68,76 @@
   <hr>
   
   <!-- 첨부 목록 -->
+  <h3>첨부 파일 다운로드</h3>
+  <div>
+    <c:if test="${empty attachList}">
+      <div>첨부 없음</div>
+    </c:if>
+    <c:if test="${not empty attachList}">
+      <c:forEach items="${attachList}" var="attach">
+        <div class="attach" data-attach-no="${attach.attachNo}">
+          <c:if test="${attach.hasThumbnail == 1}">
+            <img src="${contextPath}${attach.uploadPath}/s_${attach.filesystemName}">
+          </c:if>
+          <c:if test="${attach.hasThumbnail == 0}">
+            <img src="${contextPath}/resources/img/attach.png" width="96px">
+          </c:if>
+          
+          <a>${attach.originalFilename}</a>
+        </div>
+      </c:forEach>
+      <div>
+        <a id="download-all" href="${contextPath}/upload/downloadAll.do?uploadNo=${upload.uploadNo}">모두 다운로드</a>
+      </div>
+    </c:if>
+  </div>
+  
   
   <script>
+  const fnDownload = () => {
+	  $('.attach').on('click', (evt) => {
+	    if(confirm('해당 첨부 파일을 다운로드 할까요?')) {
+	      location.href = '${contextPath}/upload/download.do?attachNo=' + evt.currentTarget.dataset.attachNo;
+	    }
+	  })
+	}
   
+	const fnDownloadAll = () => {
+	  document.getElementById('download-all').addEventListener('click', (evt) => {
+	    if(!confirm('모두 다운로드 할까요?')) {
+	      evt.preventDefault();
+	      return;
+	    }
+	  })
+	}
+  
+	// 전역 객체
+	var frmBtn = document.getElementById('frm-btn');
+	
+	const fnEditUpload = () => {
+		document.getElementById('btn-edit').addEventListener('click', (evt) => {
+		  frmBtn.action = '${contextPath}/upload/edit.do';
+		  frmBtn.submit();
+		})
+		
+	}
+	
+	const fnAfterModifyUpdate = () => {
+		const updateCount = '${updateCount}';
+		if(updateCount !== '') {
+			if(updateCount === '1') {
+				alert('게시글이 수정되었습니다.');
+			} else {
+				alert('게시글이 수정되지 않았습니다.');
+			}
+		}
+	}
+	
+	
+  fnDownload();
+  fnDownloadAll();
+  fnEditUpload();
+  fnAfterModifyUpdate();
   </script>
   
 <%@ include file="../layout/footer.jsp" %>

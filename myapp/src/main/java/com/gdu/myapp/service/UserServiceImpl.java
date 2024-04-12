@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
     String referer = request.getHeader("referer");
     
     // referer 로 돌아가면 안 되는 예외 상황 (아이디/비밀번호 찾기 화면, 가입 화면 등)
-    String[] excludeUrls = {"/findId.page", "/findPw.page", "/signup.page"};
+    String[] excludeUrls = {"/findId.page", "/findPw.page", "/signup.page", "/upload/edit.do"};
     
     // Sign In 이후 이동할 url
     String url = referer;

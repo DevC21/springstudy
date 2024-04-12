@@ -97,8 +97,44 @@
          , U.USER_NO, U.EMAIL
       FROM USER_T U INNER JOIN UPLOAD_T UP
         ON U.USER_NO = U.USER_NO
-     WHERE UPLOAD_NO = ${uploadNo}
+     WHERE UPLOAD_NO = #{uploadNo}
   
   </select>
+  
+  <select id="getAttachList"
+          resultType="AttachDto">
+    SELECT ATTACH_NO, UPLOAD_PATH, FILESYSTEM_NAME, ORIGINAL_FILENAME, DOWNLOAD_COUNT, HAS_THUMBNAIL
+      FROM ATTACH_T
+     WHERE UPLOAD_NO = #{uploadNo}
+  </select>
+  
+ <select id="getAttachByNo"
+          resultType="AttachDto">
+    SELECT ATTACH_NO, UPLOAD_PATH, FILESYSTEM_NAME, ORIGINAL_FILENAME, DOWNLOAD_COUNT, HAS_THUMBNAIL
+      FROM ATTACH_T
+     WHERE ATTACH_NO = #{attachNo}
+  </select>
+
+  <update id="updateDownloadCount">
+    UPDATE ATTACH_T
+       SET DOWNLOAD_COUNT = DOWNLOAD_COUNT + 1
+     WHERE ATTACH_NO = #{attachNo}
+  </update>
+  
+  <update id="updateUpload"
+          parameterType="UploadDto">
+    UPDATE UPLOAD_T
+       SET TITLE = #{title}
+         , CONTENTS = #{contents}
+         , MODIFY_DT = TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD HH24:MI:SS')
+     WHERE UPLOAD_NO = #{uploadNo}
+  </update>
+  
+  <delete id="deleteAttach">
+    DELETE
+      FROM ATTACH_T
+     WHERE ATTACH_NO = #{attachNo}
+  </delete>
+  
 </mapper>
 
